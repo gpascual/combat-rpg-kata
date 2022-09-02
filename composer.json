@@ -1,0 +1,17 @@
+{
+  "autoload": {
+    "psr-4": {
+      "CombatRPG\\": "src/"
+    }
+  },
+  "config": {
+    "bin-dir": "bin"
+  },
+  "require": {
+    "php": "^8.1"
+  },
+  "require-dev": {
+    "kahlan/kahlan": "^5.2",
+    "phpunit/phpunit": "^9.5"
+  }
+}
