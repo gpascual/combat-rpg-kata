@@ -1,4 +1,5 @@
 <?php
+/** @noinspection StaticClosureCanBeUsedInspection */
 
 use CombatRPG\Character;
 
@@ -6,7 +7,7 @@ const INITIAL_HEALTH = 1000;
 
 describe('A Character', function () {
     context('initially', function () {
-        it('starts with 1000 points of health', function () {
+        it('starts with 1000 health points', function () {
             $character = new Character();
 
             expect($character->getHealth())->toBe(INITIAL_HEALTH);
@@ -36,7 +37,7 @@ describe('A Character', function () {
                 expect($character->isDead())->toBe(true);
             });
 
-            it('gets 0 health', function () {
+            it('gets 0 health points', function () {
                 $character = new Character();
                 $lethalDamage = INITIAL_HEALTH + 200;
 
@@ -75,7 +76,7 @@ describe('A Character', function () {
 
             $character->receivesDamage($lethalDamage);
 
-            $character->heals($healing);
+            $character->receivesHealing($healing);
 
             expect($character->getHealth())->toBe(0);
             expect($character->isDead())->toBe(true);
@@ -83,7 +84,7 @@ describe('A Character', function () {
     });
 
     context('that is alive', function () {
-        context('when is healed', function () {
+        context('when receives healing', function () {
             it('increases his/her health points', function () {
                 $character = new Character();
                 $damage = 400;
@@ -91,23 +92,25 @@ describe('A Character', function () {
 
                 $character->receivesDamage($damage);
 
-                $character->heals($healing);
+                $character->receivesHealing($healing);
 
                 expect($character->getHealth())->toBe(INITIAL_HEALTH - $damage + $healing);
             });
+
             context('if will get fully healed', function () {
-                it('remains with 1000 points of health', function () {
+                it('remains with 1000 health points', function () {
                     $character = new Character();
                     $damage = 200;
                     $healing = 400;
 
                     $character->receivesDamage($damage);
 
-                    $character->heals($healing);
+                    $character->receivesHealing($healing);
 
                     expect($character->getHealth())->toBe(INITIAL_HEALTH);
                 });
             });
         });
     });
+
 });
